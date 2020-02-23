@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
@@ -38,8 +40,8 @@ public class SearchController {
      */
     @GetMapping("/{keywords}")
     @ResponseBody
-    public ResponseEntity<List<String>> searchIssues1(@PathVariable("keywords") String keywords) {
-        List<String> urls = new ArrayList<>();
+    public ResponseEntity<Set<String>> searchIssues1(@PathVariable("keywords") String keywords) {
+        Set<String> urls = new HashSet<>();
         HttpStatus status = null;
         ConcurrentHashMap<String, List<Pair<Integer, Issue>>> indexMap =  IndexBuildHelper.getIndexMap();
         ConcurrentHashMap<String, Integer> frequencyMap = IndexBuildHelper.getTermFrequency();
