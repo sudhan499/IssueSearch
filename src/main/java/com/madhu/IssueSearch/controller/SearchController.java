@@ -51,10 +51,6 @@ public class SearchController {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        System.out.println("=========================================");
-        System.out.println("+========================++ : "+IndexBuildHelper.getTermFrequency());
-        System.out.println("=========================================");
-
         if(karray.length == 1) {
             //Singe keyword search.
             urls = searchService.getMatchingIssues(karray[0], indexMap);
