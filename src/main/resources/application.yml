@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+base-url: https://api.github.com/repos/Microsoft/vscode/issues
+#Add terms that are most common like a, is , the, this, that
+ignoreterms:
+   - "vscode"
+   - "version:"
+   - "in"
+   - "the"
+   - "this"
+   - "that"
+   - "it"
+   - "with"
+   - "a"
+   - "is"
+   - "have"
+
+pagesize: 10
+totalpages: 5
+storagepath: /home/oracle/madhu/projects/IssueSearch/src/main/resources/issues
+indexpath: /home/oracle/madhu/projects/IssueSearch/src/main/resources/indexes
+threadpool: 5
+#if 1 Builds index on start up itself, if 0 need to invoke an rest api to build index.
+build-on-start: true
+#If 1 index will be build from files, if 0 index will be build from github rest api.(In case of no files present github will be used by default.)
+read-from-file: true
+#Marking this as true will invalidate the index on every restart
+invalidate-on-restart: true
+
+logging.level.org.springframework.web: INFO
