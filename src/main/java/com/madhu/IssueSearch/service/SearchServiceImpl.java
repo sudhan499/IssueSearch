@@ -23,8 +23,8 @@ public class SearchServiceImpl {
      * @param indexMap
      * @return
      */
-    public List<String> getMatchingIssues(String keyword, Map<String, List<Pair<Integer, Issue>>> indexMap) {
-        List<String> urls = new ArrayList<>();
+    public Set<String> getMatchingIssues(String keyword, Map<String, List<Pair<Integer, Issue>>> indexMap) {
+        Set<String> urls = new HashSet<>();
         if(indexMap.containsKey(keyword)) {
             List<Pair<Integer, Issue>> pairs = indexMap.get(keyword);
             Collections.sort(pairs, new Comparator<Pair<Integer, Issue>>() {
@@ -44,8 +44,8 @@ public class SearchServiceImpl {
      * @param indexMap
      * @return
      */
-    public List<String> getMatchingIssues(String[] keywords, Map<String, List<Pair<Integer, Issue>>> indexMap, Map<String, Integer> frequencyMap) {
-        List<String> urls = new ArrayList<>();
+    public Set<String> getMatchingIssues(String[] keywords, Map<String, List<Pair<Integer, Issue>>> indexMap, Map<String, Integer> frequencyMap) {
+        Set<String> urls = new HashSet<>();
         //1.Array of occurrences of keywords
         Map<String, Integer> ranksMap = new HashMap<>();
         Map<String, Integer> issuesRank = new HashMap<>();
