@@ -27,13 +27,15 @@ public class SearchServiceImpl {
         Set<String> urls = new HashSet<>();
         if(indexMap.containsKey(keyword)) {
             List<Pair<Integer, Issue>> pairs = indexMap.get(keyword);
-            Collections.sort(pairs, new Comparator<Pair<Integer, Issue>>() {
-                @Override
-                public int compare(Pair<Integer, Issue> integerIssuePair, Pair<Integer, Issue> t1) {
-                    return t1.getLeft().compareTo(integerIssuePair.getLeft());
-                }
-            });
-            pairs.stream().forEach(p -> urls.add(p.getRight().getUrl()));
+            if(pairs != null) {
+                Collections.sort(pairs, new Comparator<Pair<Integer, Issue>>() {
+                    @Override
+                    public int compare(Pair<Integer, Issue> integerIssuePair, Pair<Integer, Issue> t1) {
+                        return t1.getLeft().compareTo(integerIssuePair.getLeft());
+                    }
+                });
+                pairs.stream().forEach(p -> urls.add(p.getRight().getUrl()));
+            }   
         }
         return urls;
     }
@@ -71,14 +73,16 @@ public class SearchServiceImpl {
         for(int i=0;i<keywords.length;i++) {
 
             List<Pair<Integer, Issue>> pairs = indexMap.get(keywords[i]);
-            pairs.stream().forEach(p -> {
-                String url = p.getRight().getUrl();
-                if(issuesRank.containsKey(url)) {
-                    issuesRank.put(url, issuesRank.get(url)+(frequencyMap.get(keywords[index.get()])*ranksMap.get(keywords[index.get()])));
-                } else {
-                    issuesRank.put(url, frequencyMap.get(keywords[index.get()])*ranksMap.get(keywords[index.get()]));
-                }
-            });
+            if(pairs != null) {
+                pairs.stream().forEach(p -> {
+                    String url = p.getRight().getUrl();
+                    if(issuesRank.containsKey(url)) {
+                        issuesRank.put(url, issuesRank.get(url)+(frequencyMap.get(keywords[index.get()])*ranksMap.get(keywords[index.get()])));
+                    } else {
+                        issuesRank.put(url, frequencyMap.get(keywords[index.get()])*ranksMap.get(keywords[index.get()]));
+                    }
+                });
+            }
             index.incrementAndGet();
         }
 
